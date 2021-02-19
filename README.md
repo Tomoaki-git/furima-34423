@@ -29,7 +29,7 @@
 | which_delivery_fee_id | integer     | null: false                    |
 | prefecture_id         | integer     | null: false                    |
 | days_to_delivery_id   | integer     | null: false                    |
-| price                 | string      | null: false                    |
+| price                 | integer     | null: false                    |
 | user                  | references  | null: false, foreign_key: true |
 
 ### Association
@@ -37,7 +37,7 @@
 - has_one :buyer
 - belongs_to :user
 
-## buyers テーブル
+## shipping_address テーブル
 
 | column             | Type        | Options                        |
 | ------------------ | ----------- | ------------------------------ |
@@ -47,6 +47,17 @@
 | address            | string      | null: false                    |
 | building           | string      |                                |
 | tel                | string      | null: false                    |
+| item               | references  | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :user
+- belongs_to :item
+
+## buyers テーブル
+
+| column             | Type        | Options                        |
+| ------------------ | ----------- | ------------------------------ |
 | user               | references  | null: false, foreign_key: true |
 | item               | references  | null: false, foreign_key: true |
 
