@@ -2,16 +2,16 @@
 
 ## users テーブル
 
-| column             | Type    | Options     |
-| ------------------ | ------- | ----------- |
-| email              | string  | null: false |
-| nickname           | string  | null: false |
-| encrypted_password | string  | null: false |
-| family_name        | string  | null: false |
-| first_name         | string  | null: false |
-| family_name_kana   | string  | null: false |
-| first_name_kana    | string  | null: false |
-| birthday           | data    | null: false |
+| column             | Type    | Options                       |
+| ------------------ | ------- | ----------------------------- |
+| email              | string  | null: false, uniqueness: true |
+| nickname           | string  | null: false                   |
+| encrypted_password | string  | null: false                   |
+| family_name        | string  | null: false                   |
+| first_name         | string  | null: false                   |
+| family_name_kana   | string  | null: false                   |
+| first_name_kana    | string  | null: false                   |
+| birthday           | data    | null: false                   |
 
 ### Association
 
@@ -47,12 +47,11 @@
 | address            | string      | null: false                    |
 | building           | string      |                                |
 | tel                | string      | null: false                    |
-| item               | references  | null: false, foreign_key: true |
+| buyer_id           | references  | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :user
-- belongs_to :item
+- belongs_to :buyer
 
 ## buyers テーブル
 
