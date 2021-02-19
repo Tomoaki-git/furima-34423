@@ -1,24 +1,39 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| column      | Type    | Options     |
+| ----------- | ------- | ----------- |
+| email       | string  | null: false |
+| nickname    | string  | null: false |
+| password    | string  | null: false |
+| family_name | string  | null: false |
+| first_name  | string  | null: false |
+| first_name  | string  | null: false |
+| birthday    | data    | null: false |
 
-* Ruby version
+## items テーブル
 
-* System dependencies
+| column             | Type        | Options     |
+| ------------------ | ----------- | ----------- |
+| item_name          | string      | null: false |
+| description        | text        | null: false |
+| category           | data        | null: false |
+| status             | data        | null: false |
+| which_delivery_fee | data        | null: false |
+| shipping_area      | data        | null: false |
+| days_to_delivery   | data        | null: false |
+| price              | string      | null: false |
+| user_id            | references  | null: false |
 
-* Configuration
+## buyers テーブル
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+| column             | Type        | Options     |
+| ------------------ | ----------- | ----------- |
+| postal_code        | string      | null: false |
+| prefecture         | data        | null: false |
+| municipalities     | string      | null: false |
+| address            | string      | null: false |
+| building           | string      |             |
+| tel                | string      | null: false |
+| item_id            | references  | null: false |
