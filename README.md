@@ -11,7 +11,7 @@
 | first_name         | string  | null: false                   |
 | family_name_kana   | string  | null: false                   |
 | first_name_kana    | string  | null: false                   |
-| birthday           | data    | null: false                   |
+| birthday           | date    | null: false                   |
 
 ### Association
 
@@ -37,22 +37,6 @@
 - has_one :buyer
 - belongs_to :user
 
-## shipping_address テーブル
-
-| column             | Type        | Options                        |
-| ------------------ | ----------- | ------------------------------ |
-| postal_code        | string      | null: false                    |
-| prefecture_id      | integer     | null: false                    |
-| municipalities     | string      | null: false                    |
-| address            | string      | null: false                    |
-| building           | string      |                                |
-| tel                | string      | null: false                    |
-| buyer_id           | references  | null: false, foreign_key: true |
-
-### Association
-
-- belongs_to :buyer
-
 ## buyers テーブル
 
 | column             | Type        | Options                        |
@@ -65,3 +49,19 @@
 - belongs_to :user
 - belongs_to :item
 - has_one :shipping_address
+
+## shipping_address テーブル
+
+| column             | Type        | Options                        |
+| ------------------ | ----------- | ------------------------------ |
+| postal_code        | string      | null: false                    |
+| prefecture_id      | integer     | null: false                    |
+| municipalities     | string      | null: false                    |
+| address            | string      | null: false                    |
+| building           | string      |                                |
+| tel                | string      | null: false                    |
+| buyer              | references  | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :buyer
