@@ -11,6 +11,9 @@ class Item < ApplicationRecord
     validates :which_delivery_fee_id
     validates :prefecture_id
     validates :days_to_delivery_id
-    validates :price
+
+    with_options numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999} do
+      validates :price
+    end
   end
 end
