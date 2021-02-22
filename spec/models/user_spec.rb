@@ -14,7 +14,7 @@ RSpec.describe User, type: :model do
 
     context '登録できない場合(:email)' do
       it 'メールアドレスがないと登録できない' do
-        @user.email = nil
+        @user.email = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Email can't be blank")
       end
@@ -33,7 +33,7 @@ RSpec.describe User, type: :model do
 
     context '登録できない場合(:password)' do
       it 'パスワードがないと登録できない' do
-        @user.password = nil
+        @user.password = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Password can't be blank")
       end
@@ -70,7 +70,7 @@ RSpec.describe User, type: :model do
 
     context '登録できない場合(:family_name)' do
       it '「family_name」がないと登録できない' do
-        @user.family_name = nil
+        @user.family_name = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Family name can't be blank")
       end

@@ -2,8 +2,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  with_options presence: true do
+  has_many :items
 
+  with_options presence: true do
     with_options format:{ with: /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{7,}/ } do
       validates :password
       validates :password_confirmation
@@ -23,5 +24,4 @@ class User < ApplicationRecord
 
     validates :birthday
   end
-
 end
