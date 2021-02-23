@@ -57,7 +57,7 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Status can't be blank")
       end
       it '「status_id」が0の場合は投稿できない' do
-        @item.category_id = '0'
+        @item.category_id = 0
         @item.valid?
         expect(@item.errors.full_messages).to include("Category must be other than 0")
       end
@@ -110,13 +110,13 @@ RSpec.describe Item, type: :model do
       end
 
       it '販売価格は、¥300より小さい金額の場合は投稿できない' do
-        @item.price = '299'
+        @item.price = 299
         @item.valid?
         expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300")
       end
 
       it '販売価格は、¥9,999,999より大きい金額の場合は投稿できない' do
-        @item.price = '10000000'
+        @item.price = 10000000
         @item.valid?
         expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999")
       end

@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :move_to_session, only: [:new]
+  before_action :authenticate_user!, only: [:new, :create]
   def index
     
   end
@@ -18,12 +18,6 @@ class ItemsController < ApplicationController
   end
 
   private
-
-  def move_to_session
-    unless user_signed_in?
-      redirect_to  user_session_path
-    end
-  end
 
   def item_params
     params.require(:item)
