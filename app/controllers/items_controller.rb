@@ -36,7 +36,7 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    @ite.destroy
+    @item.destroy
     redirect_to action: :index
   end
 
