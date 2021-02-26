@@ -1,6 +1,6 @@
 class BuyerShippingAdd
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :postal_code, :prefecture_id, :municipalities, :address, :building, :tel
+  attr_accessor :user_id, :item_id, :postal_code, :prefecture_id, :municipalities, :address, :building, :tel, :token
 
   with_options presence: true do
     with_options format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"} do

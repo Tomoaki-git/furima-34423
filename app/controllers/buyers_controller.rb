@@ -7,8 +7,9 @@ class BuyersController < ApplicationController
   def create
     @buyer_shipping_add = BuyerShippingAdd.new(buyer_params)
     if @buyer_shipping_add.valid?
+      pay_item
       @buyer_shipping_add.save
-      redirect_to root_path
+      return redirect_to root_path
     else
       @item = Item.find(params[:item_id])
       render :index
@@ -18,6 +19,7 @@ class BuyersController < ApplicationController
   private
 
   def buyer_params
+    binding.pry
     params
     .require(:buyer_shipping_add)
     .permit(
@@ -27,7 +29,21 @@ class BuyersController < ApplicationController
       :address, :building,
       :tel
     )
-    .merge(user_id: current_user.id, item_id: params[:item_id])
+    .merge(
+      user_id: current_user.id,
+      item_id: params[:item_id],
+      token: params[:token]
+    )
+  end
+
+  def pay_item
+    item = Item.find(params[:item_id])
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp::Charge.create(
+      amount: item.price,
+      card: buyer_params[:token],
+      currency: 'jpy'
+    )
   end
 
 end
