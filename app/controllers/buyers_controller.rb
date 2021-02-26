@@ -1,8 +1,16 @@
 class BuyersController < ApplicationController
+  before_action :authenticate_user!, only: :index
+  before_action :judge_soldout, only: :index
+
   def index
     @item = Item.find(params[:item_id])
-    @buyer_shipping_add = BuyerShippingAdd.new
+    if current_user.id == @item.user.id
+      redirect_to root_path
+    else
+      @buyer_shipping_add = BuyerShippingAdd.new
+    end
   end
+
 
   def create
     @buyer_shipping_add = BuyerShippingAdd.new(buyer_params)
@@ -19,7 +27,6 @@ class BuyersController < ApplicationController
   private
 
   def buyer_params
-    binding.pry
     params
     .require(:buyer_shipping_add)
     .permit(
@@ -44,6 +51,13 @@ class BuyersController < ApplicationController
       card: buyer_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def judge_soldout
+    @item = Item.find(params[:item_id])
+    if @item.buyer.present?
+      redirect_to root_path
+    end
   end
 
 end

@@ -20,6 +20,8 @@ const pay = () => {
         const renderDom = document.getElementById("shipping-address-form");
         const tokenObj = `<input value=${token} type="hidden" name='token' type="hidden">`;
         renderDom.insertAdjacentHTML("beforeend", tokenObj);
+      } else {
+        location.reload();
       }
 
       document.getElementById("card-number").removeAttribute("name");

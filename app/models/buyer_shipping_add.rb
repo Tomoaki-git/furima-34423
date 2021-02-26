@@ -11,7 +11,12 @@ class BuyerShippingAdd
     validates :item_id
     validates :municipalities
     validates :address
-    validates :tel
+
+    with_options format: {with: /\A[0-9]+\z/, lengh: {maximum: 11}} do
+      validates :tel
+    end
+
+    validates :token
 
     with_options numericality: { other_than: 0, message: "can't be blank" } do
       validates :prefecture_id
