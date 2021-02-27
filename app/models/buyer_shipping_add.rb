@@ -12,7 +12,7 @@ class BuyerShippingAdd
     validates :municipalities
     validates :address
 
-    with_options format: {with: /\A[0-9]+\z/, lengh: {maximum: 11}} do
+    with_options format: { with: /\A\d{10,11}\z/ } do
       validates :tel
     end
 
