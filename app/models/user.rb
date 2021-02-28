@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_many :buyers
 
   with_options presence: true do
-    with_options format:{ with: /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{7,}/ } do
+    with_options format:{ with: /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,}/ } do
       validates :password
       validates :password_confirmation
     end
