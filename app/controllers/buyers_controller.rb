@@ -1,14 +1,11 @@
 class BuyersController < ApplicationController
-  before_action :authenticate_user!, only: :index
-  before_action :judge_soldout, only: :index
+  before_action :judge_user, only: [:index, :update]
+  before_action :authenticate_user!, only: [:index, :create]
+  before_action :judge_soldout, only: [:index, :create]
+  before_action :set_item, only: [:index, :create, :pay_item, :judge_soldout]
 
   def index
-    @item = Item.find(params[:item_id])
-    if current_user.id == @item.user.id
-      redirect_to root_path
-    else
-      @buyer_shipping_add = BuyerShippingAdd.new
-    end
+    @buyer_shipping_add = BuyerShippingAdd.new
   end
 
 
@@ -19,12 +16,21 @@ class BuyersController < ApplicationController
       @buyer_shipping_add.save
       return redirect_to root_path
     else
-      @item = Item.find(params[:item_id])
       render :index
     end
   end
   
   private
+
+  def judge_user
+    if current_user.id == @item.user.id
+      redirect_to root_path
+    end
+  end
+
+  def set_item
+    item = Item.find(params[:item_id])
+  end
 
   def buyer_params
     params
@@ -44,7 +50,6 @@ class BuyersController < ApplicationController
   end
 
   def pay_item
-    item = Item.find(params[:item_id])
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
       amount: item.price,
@@ -54,7 +59,6 @@ class BuyersController < ApplicationController
   end
 
   def judge_soldout
-    @item = Item.find(params[:item_id])
     if @item.buyer.present?
       redirect_to root_path
     end
