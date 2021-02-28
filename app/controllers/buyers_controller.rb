@@ -1,8 +1,8 @@
 class BuyersController < ApplicationController
-  before_action :judge_user, only: [:index, :update]
   before_action :authenticate_user!, only: [:index, :create]
+  before_action :set_item, only: [:index, :create]
+  before_action :judge_user, only: [:index, :update]
   before_action :judge_soldout, only: [:index, :create]
-  before_action :set_item, only: [:index, :create, :pay_item, :judge_soldout]
 
   def index
     @buyer_shipping_add = BuyerShippingAdd.new
@@ -29,7 +29,7 @@ class BuyersController < ApplicationController
   end
 
   def set_item
-    item = Item.find(params[:item_id])
+    @item = Item.find(params[:item_id])
   end
 
   def buyer_params
@@ -52,7 +52,7 @@ class BuyersController < ApplicationController
   def pay_item
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
-      amount: item.price,
+      amount: @item.price,
       card: buyer_params[:token],
       currency: 'jpy'
     )
